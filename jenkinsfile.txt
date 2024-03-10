@@ -1,0 +1,16 @@
+pipeline {
+    agent any
+    stages {
+        stage('Build') {
+            steps {
+                sh 'pyinstaller --onefile CatBoostApp.py'
+            }
+        }
+    }
+    post {
+        success {
+            // Указывает Jenkins сохранить созданный исполняемый файл
+            archiveArtifacts artifacts: 'dist/myapp', onlyIfSuccessful: true
+        }
+    }
+}
