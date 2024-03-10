@@ -1,8 +1,11 @@
-﻿# Импортируем необходимые библиотеки
 import numpy as np
+import locale
 from catboost import CatBoostClassifier
 from sklearn.feature_extraction.text import TfidfVectorizer
 from sklearn.metrics import accuracy_score
+
+
+locale.setlocale(locale.LC_ALL, '')
 
 # Реальные данные для обучения модели
 jokes = [
