@@ -3,16 +3,16 @@ pipeline {
     stages {
         stage('Build') {
             steps {
-                // Используем Nuitka для компиляции CatBoostApp.py в исполняемый файл
-                sh '/home/kali/.local/lib/python3.11/site-packages/nuitka --standalone --onefile CatBoostApp.py'
+                // Использует cx_Freeze для создания исполняемого файла
+                sh 'python setup.py build'
             }
         }
     }
     post {
         success {
             // Указывает Jenkins сохранить созданный исполняемый файл
-            // Путь к артефакту может отличаться, следует проверить точное расположение после сборки
-            archiveArtifacts artifacts: 'CatBoostApp.dist/CatBoostApp', onlyIfSuccessful: true
+            // Вам может понадобиться изменить путь в соответствии с тем, где cx_Freeze оставляет исполняемый файл
+            archiveArtifacts artifacts: 'build/exe.win-amd64-3.11/myapp.exe', onlyIfSuccessful: true
         }
     }
 }
