@@ -4,7 +4,7 @@ pipeline {
         stage('Build') {
             steps {
                 // Используем Nuitka для компиляции CatBoostApp.py в исполняемый файл
-                sh 'nuitka --standalone --onefile CatBoostApp.py'
+                sh '/home/kali/.local/bin/nuitka3 --standalone --onefile CatBoostApp.py'
             }
         }
     }
