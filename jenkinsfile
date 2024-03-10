@@ -3,14 +3,16 @@ pipeline {
     stages {
         stage('Build') {
             steps {
-                sh 'pyinstaller --onefile CatBoostApp.py'
+                // Используем Nuitka для компиляции CatBoostApp.py в исполняемый файл
+                sh 'nuitka --standalone --onefile CatBoostApp.py'
             }
         }
     }
     post {
         success {
             // Указывает Jenkins сохранить созданный исполняемый файл
-            archiveArtifacts artifacts: 'dist/myapp', onlyIfSuccessful: true
+            // Путь к артефакту может отличаться, следует проверить точное расположение после сборки
+            archiveArtifacts artifacts: 'CatBoostApp.dist/CatBoostApp', onlyIfSuccessful: true
         }
     }
 }
